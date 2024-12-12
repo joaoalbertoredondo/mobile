@@ -4,6 +4,7 @@ import { useRef } from "react";
 
 import { Place, PlaceProps } from "../place";
 import { s } from "./styles";
+import { router } from "expo-router";
 
 type Props = {
   data: PlaceProps[];
@@ -28,8 +29,13 @@ export function Places({ data }: Props) {
     >
       <BottomSheetFlatList
         data={data}
-        keyExtractor={(item: any) => item.id}
-        renderItem={({ item }: any) => <Place data={item} />}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Place
+            data={item}
+            onPress={() => router.navigate(`/market/${item.id}`)}
+          />
+        )}
         contentContainerStyle={s.content}
         ListHeaderComponent={() => (
           <Text style={s.title}>Explore locais perto de você</Text>
